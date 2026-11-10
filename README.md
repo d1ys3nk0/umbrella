@@ -84,10 +84,10 @@ Root entrypoints and conventional legal notices can stay in their usual location
 
 ## Use Workspace Steward
 
-For an existing umbrella, clone its root and registered children together. Replace the example URL with the root remote.
+For an existing umbrella, clone its root and registered children together. Replace the example URL with the root remote. Prefer SSH remotes for workspaces where contributors push using SSH keys.
 
 ```sh
-ws clone https://example.com/team/product-system.git
+ws clone git@example.com:team/product-system.git
 ```
 
 To adopt the layout in an existing root Git checkout, run `ws init` if the registry is absent. Add the root ignore rule and declare the child repositories in `workspace.yml`:
@@ -102,7 +102,7 @@ root:
 children:
   - name: api
     path: components/api
-    url: https://example.com/team/api.git
+    url: git@example.com:team/api.git
     trunk: main
 ```
 
