@@ -33,6 +33,31 @@ open-source/
 
 Commit the root configuration and the ignore rule. Register each child in `workspace.yml` and keep its checkout outside the root index. The registry records repository names, checkout paths, remotes, and trunk branches. Each child retains its own Git history and remote.
 
+### Optional prefixes for system-oriented repositories
+
+Use a short prefix when it helps readers recognize a repository's role in a system. The prefix is a naming convention. Workspace Steward uses the paths declared in `workspace.yml`.
+
+| Prefix | Role |
+| --- | --- |
+| `aux-` | Supporting repositories, such as the umbrella itself or shared developer tooling. |
+| `svc-` | Application services, including backends and web frontends. |
+| `iac-` | Infrastructure and delivery automation, including provisioning and CI/CD. |
+| `doc-` | Repositories dedicated to documentation, such as a wiki. |
+
+For example, an umbrella repository named `aux-meta` could organize its children like this:
+
+```text
+aux-meta/
+└── components/
+    ├── aux-devtools/
+    ├── doc-wiki/
+    ├── iac-ansible/
+    ├── iac-cicd/
+    ├── iac-common/
+    ├── svc-core/
+    └── svc-web/
+```
+
 ## Repository ownership
 
 - Use the root `README.md` to explain the workspace's purpose and help contributors find repositories, setup instructions, and shared documentation. Put cross-repository decisions, integration procedures, and coordination tooling in the umbrella. Add workspace agent guidance in the root `AGENTS.md` when applicable and route contributors and agents to the relevant rules there.
