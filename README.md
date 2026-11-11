@@ -36,6 +36,8 @@ Commit the root configuration and the ignore rule. Register each child in `works
 - Keep each child's source, setup, configuration, checks, CI, release process, operational interfaces, and component documentation in that repository. A fresh standalone clone must support its normal development and delivery workflow. Keep umbrella-specific agent instructions and skill bundles at the umbrella root. A standalone project can maintain its own agent instructions.
 - Declare inter-repository dependencies explicitly. Use published packages, checked-in snapshots of versioned contracts, or caller-supplied paths as appropriate. Avoid assuming that a parent workspace, sibling checkout, or umbrella configuration exists.
 
+Record the chosen framework revisions and shared adoption exceptions in the umbrella's existing engineering documentation, with links to component-owned mappings and procedures. Keep component-specific choices in their owning repositories so standalone use does not require the umbrella. A standalone repository without an umbrella keeps its applicable adoption record in its own engineering documentation. See [Kerbmark's adoption guidance](https://github.com/d1ys3nk0/kerbmark/blob/main/engineering/adoption.md) for framework compatibility and update review.
+
 ## Documentation lifecycle
 
 Create these directories at the root of the repository that owns the material, as each becomes useful. The umbrella owns shared material and each child owns material specific to that child.
