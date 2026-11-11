@@ -16,20 +16,6 @@ The [Kerbmark Guidelines](https://github.com/d1ys3nk0/kerbmark) defer to Umbrell
 Both types place child checkouts at `repositories/<name>/` and ignore `/repositories/` in the root repository.
 
 ```text
-product-system/
-├── README.md
-├── AGENTS.md
-├── .gitignore
-├── workspace.yml
-└── repositories/           # ignored by the root
-    ├── aux-devtools/
-    ├── doc-wiki/
-    ├── iac-ansible/
-    ├── iac-cicd/
-    ├── iac-common/
-    ├── svc-core/
-    └── svc-web/
-
 open-source/
 ├── README.md
 ├── AGENTS.md
@@ -41,17 +27,6 @@ open-source/
 ```
 
 Commit the root configuration and the ignore rule. Register each child in `workspace.yml` and keep its checkout outside the root index. The registry records repository names, checkout paths, remotes, and trunk branches. Each child is an independent Git repository with its own history and remote.
-
-### Optional prefixes for system-oriented repositories
-
-Use a short prefix when it helps readers recognize a repository's role in a system, as shown in the `product-system/` example above. The prefix is a naming convention. Workspace Steward uses the paths declared in `workspace.yml`.
-
-| Prefix | Role |
-| --- | --- |
-| `aux-` | Supporting repositories, such as the umbrella itself or shared developer tooling. |
-| `svc-` | Application services, including backends and web frontends. |
-| `iac-` | Infrastructure and delivery automation, including provisioning and CI/CD. |
-| `doc-` | Repositories dedicated to documentation, such as a wiki. |
 
 ## Repository ownership
 
@@ -69,15 +44,83 @@ Create these directories at the root of the repository that owns the material, a
 | `backlog/` | Proposals, candidates, and active plans for work that remains unimplemented. |
 | `archive/` | Retained historical material, such as closed plans, superseded decisions, incident records, and retired artifacts. |
 
+Use these suggested subdirectories as material accumulates. Use `README.md` for directory indexes and lowercase, hyphenated names for additional topics.
+
+| Location | What belongs there |
+| --- | --- |
+| `docs/product/` | Supported product behavior and workflows |
+| `docs/engineering/` | Current architecture, engineering guidance, and decisions in effect |
+| `docs/operations/` | Current runbooks and operating procedures |
+| `backlog/product/` | Product proposals and candidate workflows |
+| `backlog/engineering/` | Engineering proposals and open investigations |
+| `backlog/plans/` | Active standalone implementation plans |
+| `archive/plans/` | Completed, abandoned, and superseded plans |
+| `archive/incidents/` | Historical incident records and reviews |
+| `archive/artifacts/` | Retained evidence and historical deliverables |
+
 Classify a document by its current role. An old recovery procedure that still applies belongs in `docs/`. A closed rollout report belongs in `archive/`. Record approval, implementation, and deployment status separately.
 
 Put standalone implementation plans in `backlog/plans/YYMMDDHHMMSS-slug.md`. Use the creation time in UTC and a lowercase, hyphen-separated slug. Keep the filename through revisions and move completed, abandoned, or superseded plans to `archive/plans/` with the same name. Leave existing historical filenames intact when adopting the framework.
 
-When closing a plan, update the owning `docs/` with guidance that now applies, carry any unfinished work into `backlog/`, and archive the execution record worth retaining. Preserve provenance and update incoming and relative links when files move. Use `README.md` for directory indexes. Add topical subdirectories where they help readers find material, such as `docs/operations/`, `backlog/product/`, or `archive/incidents/`.
+When closing a plan, update the owning `docs/` with guidance that now applies, carry any unfinished work into `backlog/`, and archive the execution record worth retaining. Preserve provenance and update incoming and relative links when files move.
 
 A workspace can document shared terminology in a single glossary such as `docs/LANGUAGE.md`. For distinct topics, another option is to keep a `LANGUAGE.md` in each relevant documentation section and link it from that section's `README.md`. Keep one canonical definition per term and cross-reference it where other sections use it.
 
 Root entrypoints and conventional legal notices can stay in their usual locations. Preserve paths owned by tools. In particular, keep OpenSpec specifications, active changes, and the native `openspec/changes/archive/` in the OpenSpec tree.
+
+## Seasoned workspace example
+
+This system-oriented workspace uses all the suggested documentation folders. It also shows `.agents/skills/` and `openspec/` for workspaces that use agent skills and OpenSpec.
+
+```text
+product-system/
+├── README.md
+├── AGENTS.md
+├── LICENSE
+├── .gitignore
+├── workspace.yml
+├── .agents/
+│   └── skills/
+│       └── workspace-operations/
+│           └── SKILL.md
+├── docs/
+│   ├── README.md
+│   ├── LANGUAGE.md
+│   ├── product/
+│   │   └── account-workflows.md
+│   ├── engineering/
+│   │   └── architecture.md
+│   └── operations/
+│       └── recovery.md
+├── backlog/
+│   ├── README.md
+│   ├── product/
+│   │   └── account-export.md
+│   ├── engineering/
+│   │   └── event-delivery.md
+│   └── plans/
+│       └── 261110090000-add-export-worker.md
+├── archive/
+│   ├── README.md
+│   ├── plans/
+│   │   └── 261001090000-migrate-queue.md
+│   ├── incidents/
+│   │   └── 2026-10-12-queue-outage.md
+│   └── artifacts/
+│       └── queue-migration-report.md
+├── openspec/
+│   ├── specs/
+│   └── changes/
+│       └── archive/
+└── repositories/           # ignored by the root
+    ├── aux-devtools/
+    ├── doc-wiki/
+    ├── iac-ansible/
+    ├── iac-cicd/
+    ├── iac-common/
+    ├── svc-core/
+    └── svc-web/
+```
 
 ## Use Workspace Steward
 
@@ -87,7 +130,7 @@ For an existing umbrella, clone its root and registered children together. Repla
 ws clone git@example.com:team/product-system.git
 ```
 
-To adopt the layout in an existing root Git checkout, run `ws init` if the registry is absent. Add the root ignore rule and declare the child repositories in `workspace.yml`:
+To adopt the layout in an existing root Git checkout, run `ws init` if the registry is absent. Add the root ignore rule and declare the child repositories in `workspace.yml`. The following entry registers `svc-core` from the example workspace.
 
 ```yaml
 ---
