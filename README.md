@@ -78,7 +78,6 @@ This system-oriented workspace uses all the suggested documentation folders. It 
 product-system/
 ├── README.md
 ├── AGENTS.md
-├── LICENSE
 ├── .gitignore
 ├── workspace.yml
 ├── .agents/
