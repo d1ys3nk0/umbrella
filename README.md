@@ -13,6 +13,8 @@ The [Kerbmark Guidelines](https://github.com/d1ys3nk0/kerbmark) defer to Umbrell
 | System-oriented | The repositories contribute to one system. The root documents how the components interact and how to operate or change them together. |
 | Purpose-oriented | The repositories serve a shared activity, such as maintaining open-source projects or applying upgrades across a portfolio. |
 
+For a system-oriented workspace, see [Kerbmark’s worked product workflow](https://github.com/d1ys3nk0/kerbmark/blob/main/engineering/product-workflow.md) for an example that combines workspace structure, engineering checks, deployment identity, and Ansible operations.
+
 Both types place child checkouts at `repositories/<name>/` and ignore `/repositories/` in the root repository.
 
 ```text
@@ -30,8 +32,8 @@ Commit the root configuration and the ignore rule. Register each child in `works
 
 ## Repository ownership
 
-- Use the root `README.md` to explain the workspace's purpose and help contributors find repositories, setup instructions, and shared documentation. Put cross-repository decisions, integration procedures, and coordination tooling in the umbrella. Add workspace agent guidance in the root `AGENTS.md` when applicable and route contributors and agents to the relevant rules there.
-- Keep each child's source, setup, configuration, tests, CI, release process, and component documentation in that repository. A fresh standalone clone must support its normal development and delivery workflow. Keep umbrella-specific agent instructions and skill bundles at the umbrella root. A standalone project can maintain its own agent instructions.
+- Use the root `README.md` to explain the workspace's purpose and help contributors find repositories, setup instructions, and shared documentation. Put system-wide topology, cross-repository decisions, integration procedures, and coordination tooling in the umbrella. Add workspace agent guidance in the root `AGENTS.md` when applicable and route contributors and agents to the relevant rules there.
+- Keep each child's source, setup, configuration, checks, CI, release process, operational interfaces, and component documentation in that repository. A fresh standalone clone must support its normal development and delivery workflow. Keep umbrella-specific agent instructions and skill bundles at the umbrella root. A standalone project can maintain its own agent instructions.
 - Declare inter-repository dependencies explicitly. Use published packages, checked-in snapshots of versioned contracts, or caller-supplied paths as appropriate. Avoid assuming that a parent workspace, sibling checkout, or umbrella configuration exists.
 
 ## Documentation lifecycle
