@@ -4,6 +4,8 @@ An **Umbrella Workspace** is an independent Git repository that brings other ind
 
 [Workspace Steward](https://github.com/d1ys3nk0/ws) uses that inventory to populate child checkouts and coordinate work across them. A **Managed Workspace** is the set of Git worktrees that Workspace Steward creates or adopts for a particular task.
 
+The [Kerbmark Guidelines](https://github.com/d1ys3nk0/kerbmark) defer to Umbrella for multi-repository workspace layout, repository ownership, and documentation placement.
+
 ## Choose a workspace type
 
 | Type | Use it when |
