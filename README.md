@@ -6,10 +6,12 @@ An **Umbrella Workspace** is an independent Git repository that brings other ind
 
 ## Choose a workspace type
 
-| Type | Use it when | Child checkouts | Root `.gitignore` entry |
-| --- | --- | --- | --- |
-| System-oriented | The repositories contribute to one system. The root documents how the components interact and how to operate or change them together. | `components/<name>/` | `/components/` |
-| Purpose-oriented | The repositories serve a shared activity, such as maintaining open-source projects or applying upgrades across a portfolio. | `repositories/<name>/` | `/repositories/` |
+| Type | Use it when |
+| --- | --- |
+| System-oriented | The repositories contribute to one system. The root documents how the components interact and how to operate or change them together. |
+| Purpose-oriented | The repositories serve a shared activity, such as maintaining open-source projects or applying upgrades across a portfolio. |
+
+Both types place child checkouts at `repositories/<name>/` and ignore `/repositories/` in the root repository.
 
 ```text
 product-system/
@@ -17,7 +19,7 @@ product-system/
 ├── AGENTS.md
 ├── .gitignore
 ├── workspace.yml
-└── components/             # ignored by the root
+└── repositories/           # ignored by the root
     ├── api/                # independent Git repository
     └── web/                # independent Git repository
 
@@ -48,7 +50,7 @@ For example, an umbrella repository named `aux-meta` could organize its children
 
 ```text
 aux-meta/
-└── components/
+└── repositories/
     ├── aux-devtools/
     ├── doc-wiki/
     ├── iac-ansible/
@@ -103,11 +105,11 @@ root:
 
 children:
   - name: api
-    path: components/api
+    path: repositories/api
     url: git@example.com:team/api.git
     trunk: main
 ```
 
-For a purpose-oriented workspace, use the corresponding `repositories/<name>` paths. Set each trunk and remote to match the actual repository. Run `ws check --config-only` to validate the registry, then `ws bootstrap` to populate missing checkouts and `ws check` to audit the result. Review and commit the root setup before creating a Managed Workspace for cross-repository work.
+Set each trunk and remote to match the actual repository. Run `ws check --config-only` to validate the registry, then `ws bootstrap` to populate missing checkouts and `ws check` to audit the result. Review and commit the root setup before creating a Managed Workspace for cross-repository work.
 
 See the [Workspace Steward configuration guide](https://github.com/d1ys3nk0/ws/blob/main/docs/configuration.md) for the registry schema, dependency declarations, and lifecycle hooks.
