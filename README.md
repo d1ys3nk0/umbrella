@@ -80,6 +80,8 @@ Put standalone implementation plans in `backlog/plans/YYMMDDHHMMSS-slug.md`. Use
 
 When closing a plan, update the owning `docs/` with guidance that now applies, carry any unfinished work into `backlog/`, and archive the execution record worth retaining. Preserve provenance and update incoming and relative links when files move. Use `README.md` for directory indexes. Add topical subdirectories where they help readers find material, such as `docs/operations/`, `backlog/product/`, or `archive/incidents/`.
 
+A workspace can document shared terminology in a single glossary such as `docs/LANGUAGE.md`. For distinct topics, another option is to keep a `LANGUAGE.md` in each relevant documentation section and link it from that section's `README.md`. Keep one canonical definition per term and cross-reference it where other sections use it.
+
 Root entrypoints and conventional legal notices can stay in their usual locations. Preserve paths owned by tools. In particular, keep OpenSpec specifications, active changes, and the native `openspec/changes/archive/` in the OpenSpec tree.
 
 ## Use Workspace Steward
