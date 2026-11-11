@@ -22,37 +22,6 @@ product-system/
 ├── .gitignore
 ├── workspace.yml
 └── repositories/           # ignored by the root
-    ├── api/                # independent Git repository
-    └── web/                # independent Git repository
-
-open-source/
-├── README.md
-├── AGENTS.md
-├── .gitignore
-├── workspace.yml
-└── repositories/           # ignored by the root
-    ├── formatter/          # independent Git repository
-    └── release-tool/       # independent Git repository
-```
-
-Commit the root configuration and the ignore rule. Register each child in `workspace.yml` and keep its checkout outside the root index. The registry records repository names, checkout paths, remotes, and trunk branches. Each child retains its own Git history and remote.
-
-### Optional prefixes for system-oriented repositories
-
-Use a short prefix when it helps readers recognize a repository's role in a system. The prefix is a naming convention. Workspace Steward uses the paths declared in `workspace.yml`.
-
-| Prefix | Role |
-| --- | --- |
-| `aux-` | Supporting repositories, such as the umbrella itself or shared developer tooling. |
-| `svc-` | Application services, including backends and web frontends. |
-| `iac-` | Infrastructure and delivery automation, including provisioning and CI/CD. |
-| `doc-` | Repositories dedicated to documentation, such as a wiki. |
-
-For example, an umbrella repository named `aux-meta` could organize its children like this:
-
-```text
-aux-meta/
-└── repositories/
     ├── aux-devtools/
     ├── doc-wiki/
     ├── iac-ansible/
@@ -60,7 +29,29 @@ aux-meta/
     ├── iac-common/
     ├── svc-core/
     └── svc-web/
+
+open-source/
+├── README.md
+├── AGENTS.md
+├── .gitignore
+├── workspace.yml
+└── repositories/           # ignored by the root
+    ├── formatter/
+    └── release-tool/
 ```
+
+Commit the root configuration and the ignore rule. Register each child in `workspace.yml` and keep its checkout outside the root index. The registry records repository names, checkout paths, remotes, and trunk branches. Each child is an independent Git repository with its own history and remote.
+
+### Optional prefixes for system-oriented repositories
+
+Use a short prefix when it helps readers recognize a repository's role in a system, as shown in the `product-system/` example above. The prefix is a naming convention. Workspace Steward uses the paths declared in `workspace.yml`.
+
+| Prefix | Role |
+| --- | --- |
+| `aux-` | Supporting repositories, such as the umbrella itself or shared developer tooling. |
+| `svc-` | Application services, including backends and web frontends. |
+| `iac-` | Infrastructure and delivery automation, including provisioning and CI/CD. |
+| `doc-` | Repositories dedicated to documentation, such as a wiki. |
 
 ## Repository ownership
 
@@ -106,9 +97,9 @@ root:
   trunk: main
 
 children:
-  - name: api
-    path: repositories/api
-    url: git@example.com:team/api.git
+  - name: svc-core
+    path: repositories/svc-core
+    url: git@example.com:team/svc-core.git
     trunk: main
 ```
 
